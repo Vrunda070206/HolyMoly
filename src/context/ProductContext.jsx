@@ -6,35 +6,67 @@ export function ProductProvider({ children }) {
   const [products, setProducts] = useState([
     {
       id: 1,
-      name: "Classic White Tee",
-      price: 599,
-      category: "Tops",
+      name: "Bandana Classic White ",
+      price: 800,
+      category: "hair accessories",
       image:
-        "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600",
+        "https://res.cloudinary.com/dyltfcdvt/image/upload/v1762321824/bandana_cfahtb.jpg",
     },
     {
       id: 2,
-      name: "Denim Jacket",
-      price: 1899,
-      category: "Outerwear",
+      name: "Naruto keychain",
+      price: 99,
+      category: "Keychain",
       image:
-        "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd8?w=600",
+        "https://res.cloudinary.com/dyltfcdvt/image/upload/v1762316716/naruto_cjrt8z.jpg"
     },
     {
       id: 3,
-      name: "Chunky Sneakers",
-      price: 2599,
-      category: "Shoes",
+      name: "Crochet Boquet",
+      price: 800,
+      category: "boquet",
       image:
-        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600",
+        "https://res.cloudinary.com/dyltfcdvt/image/upload/v1762316714/boquet_gjjzoe.jpg",
     },
     {
       id: 4,
-      name: "Summer Dress",
+      name: "clay accessories holder",
       price: 1399,
-      category: "Dresses",
+      category: "clay",
       image:
-        "https://images.unsplash.com/photo-1520974722073-bd2b0bba7b4b?w=600",
+        "https://res.cloudinary.com/dyltfcdvt/image/upload/v1762316716/clap_box_enzvpl.jpg",
+    },
+    {
+      id: 5,
+      name: "Clay plate",
+      price: 500,
+      category: "clay",
+      image:
+        "https://res.cloudinary.com/dyltfcdvt/image/upload/v1762316913/clay_2_vuxsyv.jpg",
+    },
+    {
+      id: 6,
+      name: "Head band",
+      price: 180,
+      category: "Hair Accessories",
+      image:
+        "https://res.cloudinary.com/dyltfcdvt/image/upload/v1762321824/headband_r2ztmz.jpg",
+    },
+    {
+      id: 7,
+      name: "Cherry Keychain",
+      price: 100,
+      category: "keychain",
+      image:
+        "https://res.cloudinary.com/dyltfcdvt/image/upload/v1762321824/cherry_toipfs.jpg",
+    },
+    {
+      id: 8,
+      name: "Cherry with beads",
+      price: 130,
+      category: "keychain",
+      image:
+        "https://res.cloudinary.com/dyltfcdvt/image/upload/v1762321824/cherry_2_hv6ioc.jpg",
     },
   ]);
 

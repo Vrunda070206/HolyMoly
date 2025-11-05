@@ -3,40 +3,66 @@ import { createContext, useState, useEffect } from "react";
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem("holymoly-user");
-    return savedUser ? JSON.parse(savedUser) : null;
-  });
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
+  // Load session on startup
   useEffect(() => {
-    if (user) localStorage.setItem("holymoly-user", JSON.stringify(user));
-    else localStorage.removeItem("holymoly-user");
-  }, [user]);
+    const storedUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (storedUser) {
+      setCurrentUser(storedUser);
+      setIsAuthenticated(true);
+    }
+  }, []);
 
-  const register = (name, email, password) => {
-    const newUser = { name, email, password };
-    localStorage.setItem("holymoly-registered-user", JSON.stringify(newUser));
-    alert("✅ Registration successful! Please log in.");
+  const register = (user) => {
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const existingUser = users.find((u) => u.email === user.email);
+
+    if (existingUser) {
+      alert("⚠️ User already exists. Please log in instead.");
+      return false;
+    }
+
+    users.push(user);
+    localStorage.setItem("users", JSON.stringify(users));
+    alert("✅ Registration successful!");
+    return true;
   };
 
   const login = (email, password) => {
-    const stored = localStorage.getItem("holymoly-registered-user");
-    if (!stored) return alert("No user found! Please register first.");
-    const parsed = JSON.parse(stored);
-    if (parsed.email === email && parsed.password === password) {
-      setUser(parsed);
-      alert(`👋 Welcome back, ${parsed.name}!`);
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const foundUser = users.find(
+      (u) => u.email === email && u.password === password
+    );
+
+    if (foundUser) {
+      setCurrentUser(foundUser);
+      setIsAuthenticated(true);
+      localStorage.setItem("currentUser", JSON.stringify(foundUser));
       return true;
     } else {
-      alert("❌ Invalid email or password");
+      alert("❌ Invalid email or password!");
       return false;
     }
   };
 
-  const logout = () => setUser(null);
+  const logout = () => {
+    setIsAuthenticated(false);
+    setCurrentUser(null);
+    localStorage.removeItem("currentUser");
+  };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, register }}>
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        currentUser,
+        login,
+        logout,
+        register,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
