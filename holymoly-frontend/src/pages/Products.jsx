@@ -3,6 +3,7 @@ import { CartContext } from "../context/CartContext";
 import { ProductContext } from "../context/ProductContext";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import BuyButton from "../components/BuyButton";
 
 export default function Products() {
   const { addToCart } = useContext(CartContext);
@@ -27,19 +28,19 @@ export default function Products() {
   const categories = ["All", ...new Set(products.map((p) => p.category))];
 
   return (
-    <div className="mt-10">
+    <div className="mt-10 px-6 sm:px-10">
       {/* 🔍 Filters Section */}
       <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
         <input
           type="text"
           placeholder="Search products..."
-          className="border p-2 rounded-lg w-60 focus:ring-2 focus:ring-pink-400"
+          className="border p-2 rounded-lg w-60 focus:ring-2 focus:ring-pink-400 outline-none"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
         <select
-          className="border p-2 rounded-lg"
+          className="border p-2 rounded-lg focus:ring-2 focus:ring-pink-400 outline-none"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >
@@ -51,7 +52,7 @@ export default function Products() {
         </select>
 
         <select
-          className="border p-2 rounded-lg"
+          className="border p-2 rounded-lg focus:ring-2 focus:ring-pink-400 outline-none"
           value={sortOrder}
           onChange={(e) => setSortOrder(e.target.value)}
         >
@@ -67,7 +68,7 @@ export default function Products() {
           {filteredProducts.map((p) => (
             <motion.div
               key={p.id}
-              className="border rounded-xl p-4 shadow hover:shadow-lg transition bg-white"
+              className="border rounded-xl p-4 shadow hover:shadow-lg transition bg-white flex flex-col items-center text-center"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
               initial={{ opacity: 0, y: 20 }}
@@ -83,13 +84,13 @@ export default function Products() {
                 <h2 className="font-semibold text-lg">{p.name}</h2>
               </Link>
               <p className="text-pink-600 font-medium">₹{p.price}</p>
-              <p className="text-sm text-gray-500">{p.category}</p>
-              <button
+              <p className="text-sm text-gray-500 mb-4">{p.category}</p>
+
+              {/* ✨ Replaced old button with animated BuyButton */}
+              <BuyButton
+                price={p.price}
                 onClick={() => addToCart(p)}
-                className="mt-3 bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 transition-transform hover:scale-105"
-              >
-                Add to Cart
-              </button>
+              />
             </motion.div>
           ))}
         </div>
